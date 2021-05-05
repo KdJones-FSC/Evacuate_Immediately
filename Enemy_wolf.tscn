@@ -1,0 +1,177 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://wolfsheet4.png" type="Texture" id=1]
+[ext_resource path="res://Enemy_wolf.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 362.836
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 50.7976, 25.2885 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 320, 288, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 384, 288, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 448, 288, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 512, 288, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 576, 288, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 320, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 384, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 448, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 512, 192, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 320, 96, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 384, 96, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 448, 96, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 512, 96, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 576, 96, 64, 32 )
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "wolf_walk_left",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": false,
+"name": "death",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "wolf_walk_right",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 22.1029, 26.1178 )
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 18.3173, 26.1179 )
+
+[sub_resource type="Animation" id=20]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00245179, 0.0514876, 0.0576171, 0.0992975, 0.100523 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.00392157, 0.00392157, 1 ), Color( 1, 0.00392157, 0.00392157, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0956198 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.996078, 0.996078, 0.996078, 1 ), Color( 0.996078, 0.996078, 0.996078, 1 ) ]
+}
+
+[node name="Wolf" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 35
+script = ExtResource( 2 )
+
+[node name="search_area" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="search_area"]
+position = Vector2( 0.33371, 2.28882e-05 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.166887, 1.43051e-06 )
+scale = Vector2( 1.58921, 1.58399 )
+frames = SubResource( 17 )
+animation = "death"
+frame = 3
+playing = true
+
+[node name="damage_area" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_area"]
+position = Vector2( -34.0761, -0.890884 )
+shape = SubResource( 18 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="damage_area"]
+position = Vector2( 39.645, -0.8909 )
+shape = SubResource( 19 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/damage = SubResource( 20 )
+anims/rest = SubResource( 21 )
+[connection signal="body_entered" from="search_area" to="." method="_on_search_area_body_entered"]
+[connection signal="body_exited" from="search_area" to="." method="_on_search_area_body_exited"]
+[connection signal="body_entered" from="damage_area" to="." method="_on_damage_area_body_entered"]
